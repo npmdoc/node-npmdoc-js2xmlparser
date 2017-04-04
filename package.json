@@ -1,17 +1,40 @@
 {
-    "buildNpmdoc":"js2xmlparser",
+    "author": "kai zhu <kaizhu256@gmail.com>",
+    "buildNpmdoc": "js2xmlparser",
+    "description": "api documentation for [js2xmlparser (v3.0.0)](https://github.com/michaelkourlas/node-js2xmlparser#readme) [![npm package](https://img.shields.io/npm/v/npmdoc-js2xmlparser.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-js2xmlparser) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-js2xmlparser.svg)](https://travis-ci.org/npmdoc/node-npmdoc-js2xmlparser)",
     "devDependencies": {
-        "js2xmlparser": "*",
         "electron-lite": "kaizhu256/node-electron-lite#alpha",
+        "js2xmlparser": "*",
         "utility2": "kaizhu256/node-utility2#alpha"
     },
-    "name":"npmdoc-js2xmlparser",
+    "engines": {
+        "node": ">=4.0"
+    },
+    "homepage": "https://github.com/npmdoc/node-npmdoc-js2xmlparser",
+    "keywords": [
+        "documentation",
+        "js2xmlparser"
+    ],
+    "license": "MIT",
+    "main": "lib.npmdoc_js2xmlparser.js",
+    "name": "npmdoc-js2xmlparser",
+    "nameAlias": "npmdoc_js2xmlparser",
+    "nameOriginal": "npmdoc-js2xmlparser",
+    "os": [
+        "darwin",
+        "linux"
+    ],
     "repository": {
         "type": "git",
         "url": "https://github.com/npmdoc/node-npmdoc-js2xmlparser"
     },
     "scripts": {
-        "build-ci": "utility2 shReadmeTest build_ci.sh"
+        "build-ci": "utility2 shReadmeTest build_ci.sh",
+        "env": "env",
+        "heroku-postbuild": "(set -e; npm install \"kaizhu256/node-utility2#alpha\"; utility2 shDeployHeroku)",
+        "postinstall": "if [ -f npm_scripts.sh ]; then ./npm_scripts.sh postinstall; fi",
+        "start": "(set -e; export PORT=${PORT:-8080}; utility2 start test.js)",
+        "test": "(set -e; export PORT=$(utility2 shServerPortRandom); utility2 test test.js)"
     },
     "version": "0.0.1"
 }
