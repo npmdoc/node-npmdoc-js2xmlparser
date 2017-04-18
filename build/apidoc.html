@@ -72,6 +72,12 @@
 
         <li>
 
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">js2xmlparser.</span>main</span>
+
+        </li>
+
+        <li>
+
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">js2xmlparser.</span>options</span>
 
         </li>
@@ -79,6 +85,19 @@
         <li>
 
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">js2xmlparser.</span>utils</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.js2xmlparser.main">module js2xmlparser.main</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.js2xmlparser.main.parse">
+            function <span class="apidocSignatureSpan">js2xmlparser.main.</span>parse
+            <span class="apidocSignatureSpan">(root, object, options)</span>
+            </a>
 
         </li>
 
@@ -305,6 +324,46 @@ This example produces the following XML:
 
 
 
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.js2xmlparser.main" id="apidoc.module.js2xmlparser.main">module js2xmlparser.main</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.js2xmlparser.main.parse" id="apidoc.element.js2xmlparser.main.parse">
+        function <span class="apidocSignatureSpan">js2xmlparser.main.</span>parse
+        <span class="apidocSignatureSpan">(root, object, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function parse(root, object, options) {
+    var opts = new options_1.Options(options);
+    var document = parseToDocument(root, object, opts);
+    return document.toString(opts.format);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+            },
+            &#x22;#&#x22;: &#x22;567-555-8901&#x22;
+        }
+    ],
+    &#x22;email&#x22;: &#x22;john@smith.com&#x22;
+};
+
+console.log(js2xmlparser.<span class="apidocCodeKeywordSpan">parse</span>(&#x22;person&#x22;, obj));
+```
+
+This example produces the following XML:
+
+```xml
+&#x3c;?xml version=&#x27;1.0&#x27;?&#x3e;
+&#x3c;person&#x3e;
+...</pre></li>
+    </ul>
+
+
 </div>
 
 <div class="apidocSectionDiv">
@@ -468,7 +527,20 @@ This example produces the following XML:
     }
     this.wrapHandlers = new WrapHandlers(options.wrapHandlers);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+ * @param object The object to convert to XML.
+ * @param options Options for parsing the object and formatting the resulting
+ *                XML.
+ *
+ * @returns An XML string representation of the specified object.
+ */
+function parse(root, object, options) {
+    var opts = new options_1.<span class="apidocCodeKeywordSpan">Options</span>(options);
+    var document = parseToDocument(root, object, opts);
+    return document.toString(opts.format);
+}
+exports.parse = parse;
+...</pre></li>
     </ul>
 
 
@@ -548,7 +620,23 @@ This example produces the following XML:
     <li>description and source-code<pre class="apidocCodePre">function isArray(val) {
     return Object.prototype.toString.call(val) === &#x22;[object Array]&#x22;;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+       else {
+           throw new Error(&#x22;value &#x22; + value + &#x22; should be a primitive&#x22;
+               + &#x22; (string, number, boolean, null, or undefined)&#x22;);
+       }
+   }
+   // Standard handling (create new element for entry)
+   var element = parentElement;
+   if (!utils_1.<span class="apidocCodeKeywordSpan">isArray</span>(value) &#x26;&#x26; !utils_1.isSet(value)) {
+       element = parentElement.element(key);
+   }
+   parseValue(key, value, element, options);
+}
+/**
+* Parses an Object or Map into XML.
+*
+...</pre></li>
     </ul>
 
 
@@ -625,7 +713,23 @@ for (var key in typeHandlers) {
     <li>description and source-code<pre class="apidocCodePre">function isMap(val) {
     return Object.prototype.toString.call(val) === &#x22;[object Map]&#x22;;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+ * @param objectOrMap The object or map to parse into XML.
+ * @param parentElement The XML element that will contain the object.
+ * @param options Options for parsing the object into XML.
+ *
+ * @private
+ */
+function parseObjectOrMap(objectOrMap, parentElement, options) {
+if (utils_1.<span class="apidocCodeKeywordSpan">isMap</span>(objectOrMap)) {
+    objectOrMap.forEach(function (value, key) {
+        parseObjectOrMapEntry(utils_1.stringify(key), value, parentElement, options);
+    });
+}
+else {
+    for (var _i = 0, _a = Object.keys(objectOrMap); _i &#x3c; _a.length; _i++) {
+        var key = _a[_i];
+...</pre></li>
     </ul>
 
 
@@ -640,7 +744,23 @@ for (var key in typeHandlers) {
     <li>description and source-code<pre class="apidocCodePre">function isNull(val) {
     return Object.prototype.toString.call(val) === &#x22;[object Null]&#x22;;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+var arrayElement = parentElement;
+if (!utils_1.isUndefined(arrayNameFunc)) {
+    var arrayNameFuncKey = arrayNameFunc(arrayKey, arrayOrSet);
+    if (utils_1.isString(arrayNameFuncKey)) {
+        arrayKey = arrayNameFuncKey;
+        arrayElement = parentElement.element(key);
+    }
+    else if (!utils_1.<span class="apidocCodeKeywordSpan">isNull</span>(arrayNameFuncKey)) {
+        throw new Error(&#x22;wrapHandlers function for &#x22; + arrayKey
+            + &#x22; should return a string or null&#x22;);
+    }
+}
+arrayOrSet.forEach(function (item) {
+    var element = arrayElement;
+    if (!utils_1.isArray(item) &#x26;&#x26; !utils_1.isSet(item)) {
+...</pre></li>
     </ul>
 
 
@@ -671,21 +791,21 @@ for (var key in typeHandlers) {
     return Object.prototype.toString.call(val) === &#x22;[object Object]&#x22;;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-    function Options(options) {
-if (options === void 0) { options = {}; }
-this.aliasString = &#x22;=&#x22;;
-this.attributeString = &#x22;@&#x22;;
-this.cdataInvalidChars = false;
-this.cdataKeys = [];
-this.valueString = &#x22;#&#x22;;
-if (!utils_1.<span class="apidocCodeKeywordSpan">isObject</span>(options)) {
-    throw new TypeError(&#x22;options should be an Object or undefined&#x22;);
-}
-if (!utils_1.isString(options.aliasString)) {
-    if (!utils_1.isUndefined(options.aliasString)) {
-        throw new TypeError(&#x22;options.aliasString should be a string or&#x22;
-            + &#x22; undefined&#x22;);
+            + &#x22; should be a string&#x22;);
     }
+    parentElement.name = value;
+    return;
+}
+// Attributes key
+if (key.indexOf(options.attributeString) === 0) {
+    if (utils_1.<span class="apidocCodeKeywordSpan">isObject</span>(value)) {
+        for (var _i = 0, _a = Object.keys(value); _i &#x3c; _a.length; _i++) {
+            var subkey = _a[_i];
+            parseAttribute(subkey, value[subkey], parentElement, options);
+        }
+    }
+    else {
+        throw new Error(&#x22;attributes object for &#x22; + key + &#x22; should be an&#x22;
 ...</pre></li>
     </ul>
 
@@ -705,7 +825,23 @@ if (!utils_1.isString(options.aliasString)) {
         || isUndefined(val)
         || isNull(val);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+ * @param parentElement The XML element that will contain the string.
+ * @param options Options for parsing the attribute into XML.
+ *
+ * @private
+ */
+function parseAttribute(name, value, parentElement, options) {
+var attribute = parentElement.attribute(name, &#x22;&#x22;);
+if (utils_1.<span class="apidocCodeKeywordSpan">isPrimitive</span>(value)) {
+    parseString(utils_1.stringify(value), attribute, options);
+}
+else {
+    throw new Error(&#x22;attribute value for name &#x27;&#x22; + name + &#x22;&#x27; should be a&#x22;
+        + &#x22; primitive (string, number, boolean, null, or&#x22;
+        + &#x22; undefined)&#x22;);
+}
+...</pre></li>
     </ul>
 
 
@@ -720,7 +856,23 @@ if (!utils_1.isString(options.aliasString)) {
     <li>description and source-code<pre class="apidocCodePre">function isSet(val) {
     return Object.prototype.toString.call(val) === &#x22;[object Set]&#x22;;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+       else {
+           throw new Error(&#x22;value &#x22; + value + &#x22; should be a primitive&#x22;
+               + &#x22; (string, number, boolean, null, or undefined)&#x22;);
+       }
+   }
+   // Standard handling (create new element for entry)
+   var element = parentElement;
+   if (!utils_1.isArray(value) &#x26;&#x26; !utils_1.<span class="apidocCodeKeywordSpan">isSet</span>(value)) {
+       element = parentElement.element(key);
+   }
+   parseValue(key, value, element, options);
+}
+/**
+* Parses an Object or Map into XML.
+*
+...</pre></li>
     </ul>
 
 
@@ -736,21 +888,21 @@ if (!utils_1.isString(options.aliasString)) {
     return Object.prototype.toString.call(val) === &#x22;[object String]&#x22;;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-this.attributeString = &#x22;@&#x22;;
-this.cdataInvalidChars = false;
-this.cdataKeys = [];
-this.valueString = &#x22;#&#x22;;
-if (!utils_1.isObject(options)) {
-    throw new TypeError(&#x22;options should be an Object or undefined&#x22;);
-}
-if (!utils_1.<span class="apidocCodeKeywordSpan">isString</span>(options.aliasString)) {
-    if (!utils_1.isUndefined(options.aliasString)) {
-        throw new TypeError(&#x22;options.aliasString should be a string or&#x22;
-            + &#x22; undefined&#x22;);
+ * @param options Options for parsing the object or map entry into XML.
+ *
+ * @private
+ */
+function parseObjectOrMapEntry(key, value, parentElement, options) {
+// Alias key
+if (key === options.aliasString) {
+    if (!utils_1.<span class="apidocCodeKeywordSpan">isString</span>(value)) {
+        throw new Error(&#x22;aliasString value for &#x22; + value
+            + &#x22; should be a string&#x22;);
     }
+    parentElement.name = value;
+    return;
 }
-else {
-    this.aliasString = options.aliasString;
+// Attributes key
 ...</pre></li>
     </ul>
 
@@ -807,21 +959,21 @@ else {
     return Object.prototype.toString.call(val) === &#x22;[object Undefined]&#x22;;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-this.cdataInvalidChars = false;
-this.cdataKeys = [];
-this.valueString = &#x22;#&#x22;;
-if (!utils_1.isObject(options)) {
-    throw new TypeError(&#x22;options should be an Object or undefined&#x22;);
+    arrayNameFunc = options.wrapHandlers[&#x22;*&#x22;];
 }
-if (!utils_1.isString(options.aliasString)) {
-    if (!utils_1.<span class="apidocCodeKeywordSpan">isUndefined</span>(options.aliasString)) {
-        throw new TypeError(&#x22;options.aliasString should be a string or&#x22;
-            + &#x22; undefined&#x22;);
+if (options.wrapHandlers.hasOwnProperty(key)) {
+    arrayNameFunc = options.wrapHandlers[key];
+}
+var arrayKey = key;
+var arrayElement = parentElement;
+if (!utils_1.<span class="apidocCodeKeywordSpan">isUndefined</span>(arrayNameFunc)) {
+    var arrayNameFuncKey = arrayNameFunc(arrayKey, arrayOrSet);
+    if (utils_1.isString(arrayNameFuncKey)) {
+        arrayKey = arrayNameFuncKey;
+        arrayElement = parentElement.element(key);
     }
-}
-else {
-    this.aliasString = options.aliasString;
-}
+    else if (!utils_1.isNull(arrayNameFuncKey)) {
+        throw new Error(&#x22;wrapHandlers function for &#x22; + arrayKey
 ...</pre></li>
     </ul>
 
@@ -842,7 +994,23 @@ else {
     }
     return String(value);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+ * @param options Options for parsing the attribute into XML.
+ *
+ * @private
+ */
+function parseAttribute(name, value, parentElement, options) {
+    var attribute = parentElement.attribute(name, &#x22;&#x22;);
+    if (utils_1.isPrimitive(value)) {
+        parseString(utils_1.<span class="apidocCodeKeywordSpan">stringify</span>(value), attribute, options);
+    }
+    else {
+        throw new Error(&#x22;attribute value for name &#x27;&#x22; + name + &#x22;&#x27; should be a&#x22;
+            + &#x22; primitive (string, number, boolean, null, or&#x22;
+            + &#x22; undefined)&#x22;);
+    }
+}
+...</pre></li>
     </ul>
 
 
