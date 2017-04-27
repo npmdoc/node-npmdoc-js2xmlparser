@@ -65,12 +65,6 @@
 
         <li>
 
-            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">js2xmlparser.</span>main</span>
-
-        </li>
-
-        <li>
-
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">js2xmlparser.</span>options</span>
 
         </li>
@@ -78,19 +72,6 @@
         <li>
 
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">js2xmlparser.</span>utils</span>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.js2xmlparser.main">module js2xmlparser.main</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.js2xmlparser.main.parse">
-            function <span class="apidocSignatureSpan">js2xmlparser.main.</span>parse
-            <span class="apidocSignatureSpan">(root, object, options)</span>
-            </a>
 
         </li>
 
@@ -294,67 +275,27 @@
     return document.toString(opts.format);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-            },
-            "#": "567-555-8901"
-        }
-    ],
-    "email": "john@smith.com"
-};
+var data = { hello: "world" };
+var options = {};
 
-console.log(js2xmlparser.<span class="apidocCodeKeywordSpan">parse</span>("person", obj));
+// old method (no longer works):
+// js2xmlparser(root, data, options);
+
+// new method:
+js2xmlparser.<span class="apidocCodeKeywordSpan">parse</span>(root, data, options);
 ```
-
-This example produces the following XML:
-
-```xml
-&lt;?xml version='1.0'?&gt;
-&lt;person&gt;
+* New options and changes to functionality of some existing options:
+* `declaration` contains additional options
+* `attributeString` has additional functionality
+* `valueString` has additional functionality
+* The functionality provided by `prettyPrinting` is now provided by the new
+  `format` option, which contains additional options
 ...</pre></li>
     </ul>
 
 
 
 
-
-
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.js2xmlparser.main" id="apidoc.module.js2xmlparser.main">module js2xmlparser.main</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.js2xmlparser.main.parse" id="apidoc.element.js2xmlparser.main.parse">
-        function <span class="apidocSignatureSpan">js2xmlparser.main.</span>parse
-        <span class="apidocSignatureSpan">(root, object, options)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">function parse(root, object, options) {
-    var opts = new options_1.Options(options);
-    var document = parseToDocument(root, object, opts);
-    return document.toString(opts.format);
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
-            },
-            "#": "567-555-8901"
-        }
-    ],
-    "email": "john@smith.com"
-};
-
-console.log(js2xmlparser.<span class="apidocCodeKeywordSpan">parse</span>("person", obj));
-```
-
-This example produces the following XML:
-
-```xml
-&lt;?xml version='1.0'?&gt;
-&lt;person&gt;
-...</pre></li>
-    </ul>
 
 
 </div>
