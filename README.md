@@ -1,6 +1,6 @@
 # npmdoc-js2xmlparser
 
-#### api documentation for  [js2xmlparser (v3.0.0)](https://github.com/michaelkourlas/node-js2xmlparser#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-js2xmlparser.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-js2xmlparser) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-js2xmlparser.svg)](https://travis-ci.org/npmdoc/node-npmdoc-js2xmlparser)
+#### basic api documentation for  [js2xmlparser (v3.0.0)](https://github.com/michaelkourlas/node-js2xmlparser#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-js2xmlparser.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-js2xmlparser) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-js2xmlparser.svg)](https://travis-ci.org/npmdoc/node-npmdoc-js2xmlparser)
 
 #### Parses JavaScript objects into XML
 
@@ -90,7 +90,8 @@
     },
     "scripts": {},
     "typings": "./lib/main",
-    "version": "3.0.0"
+    "version": "3.0.0",
+    "bin": {}
 }
 ```
 
